@@ -1,0 +1,6 @@
+/* STEP 6.1  - Add external flash to applciation */
+/ {
+	chosen {
+		nordic,pm-ext-flash = &mx25r64;
+	};
+};
