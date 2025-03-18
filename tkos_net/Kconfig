@@ -1,0 +1,54 @@
+# Copyright (c) 2021 Nordic Semiconductor ASA
+# SPDX-License-Identifier: Apache-2.0
+#
+# This file is the application Kconfig entry point. All application Kconfig
+# options can be defined here or included via other application Kconfig files.
+# You can browse these options using the west targets menuconfig (terminal) or
+# guiconfig (GUI).
+
+menu "Zephyr"
+source "Kconfig.zephyr"
+
+config TIMESYNC_FREEWHEEL_TIMER
+	int "Freewheel timer instance"
+	range 1 2 if SOC_NRF5340_CPUNET
+	range 3 4
+	default 1 if SOC_NRF5340_CPUNET
+	default 3
+	help
+	  NRF_TIMER instance for freewheel timer.
+
+config TIMESYNC_COUNTER_TIMER
+	int "Counter timer instance"
+	range 1 2 if SOC_NRF5340_CPUNET
+	range 3 4
+	default 2 if SOC_NRF5340_CPUNET
+	default 4
+	help
+	  NRF_TIMER instance for counter timer.
+
+config TIMESYNC_EGU
+	int "EGU instance"
+	range 0 3
+	default 0 if SOC_NRF5340_CPUNET
+	default 3
+	help
+	  NRF_EGU instance.
+
+config TIMESYNC_SWI
+	int "SWI instance"
+	range 0 3
+	range 1 4 if SOC_NRF5340_CPUNET
+	default 1
+	help
+	  NRF_SWI instance.
+
+config TKOS_NET_BUILD_STRATEGY_FROM_SOURCE
+    bool "Build TKOS_NET from source"
+    default y
+
+module = TKOS_NET
+module-str = TKOS_NET
+source "subsys/logging/Kconfig.template.log_config"
+
+endmenu
